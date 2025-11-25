@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Flame, Calendar, Trophy, Star } from 'lucide-react';
+import { Flame, Calendar, Trophy, Star, CalendarCheck } from 'lucide-react'; // Importado CalendarCheck
 
 export default function App() {
+  // Estado principal
   const [streak, setStreak] = useState('');
   const [milestones, setMilestones] = useState([]);
   const [error, setError] = useState('');
   
-  // Nuevo estado para el mensaje motivacional
+  // Estado para el mensaje motivacional
   const [motivationalMessage, setMotivationalMessage] = useState('');
   const [showMotivation, setShowMotivation] = useState(false);
 
@@ -20,19 +21,23 @@ export default function App() {
     }).format(date);
   };
 
-  // Función auxiliar para sumar meses de forma precisa, manteniendo el día del mes
-  // si es posible, o ajustando al final del mes (ej. 31 de Ene a 28/29 de Feb)
+  /**
+   * Función auxiliar para sumar meses de forma precisa.
+   * Maneja los finales de mes (ej. si la fecha de inicio es el 31 de enero,
+   * un mes después será el 28/29 de febrero, no el 3 de marzo).
+   */
   const addMonths = (date, months) => {
       const d = new Date(date);
       const day = d.getDate();
       
-      d.setDate(1); // Mover a día 1 para evitar saltos de mes (e.g., 31 Jan -> 3 Mar)
+      // Mover a día 1 para evitar saltos de mes 
+      d.setDate(1); 
       d.setMonth(d.getMonth() + months);
       
       // Encontrar el último día del nuevo mes
       const lastDayOfMonth = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
       
-      // Restaurar el día, o usar el último día del mes si el original era mayor
+      // Restaurar el día original, o usar el último día del mes si el original era mayor
       d.setDate(Math.min(day, lastDayOfMonth));
       return d;
   };
@@ -79,7 +84,7 @@ export default function App() {
     }
   };
   
-  // Manejador cuando el input pierde el foco
+  // Manejador cuando el input pierde el foco (para mostrar mensaje motivacional)
   const handleBlur = () => {
       const currentStreak = Number(streak);
       if (currentStreak > 0 && !isNaN(currentStreak)) {
@@ -88,7 +93,7 @@ export default function App() {
               setMotivationalMessage(msg);
               setShowMotivation(true);
               
-              // Ocultar el mensaje después de 4 segundos
+              // Ocultar el mensaje después de 5 segundos
               setTimeout(() => {
                   setShowMotivation(false);
                   setMotivationalMessage(''); // Limpiar el mensaje después de ocultarlo
@@ -100,6 +105,7 @@ export default function App() {
       }
   };
 
+  // Efecto principal para calcular los hitos cada vez que cambia la racha
   useEffect(() => {
     if (!streak) {
       setMilestones([]);
@@ -110,21 +116,21 @@ export default function App() {
     if (isNaN(currentStreak) || currentStreak < 0) return;
     
     const today = new Date();
-    const futureMilestones = new Map(); // Usamos Map para almacenar {días: etiqueta}
+    const futureMilestones = new Map(); // Mapa para almacenar {días_totales: etiqueta}
     const limit = currentStreak + 2000; // Buscamos hitos en los próximos 2000 días
 
     // Determinar la fecha de inicio de la racha
     const streakStartDate = new Date(today);
     streakStartDate.setDate(today.getDate() - currentStreak);
     
-    // Días en milisegundos
+    // Constante de días en milisegundos
     const MS_PER_DAY = 1000 * 60 * 60 * 24;
 
     // --- LÓGICA DE CÁLCULO DE HITOS ---
     
-    // 1. Múltiplos de Meses (Usando meses reales) - LIMITADO A LOS PRÓXIMOS 3 Y A 365 DÍAS.
+    // 1. Múltiplos de Meses (Usando el aniversario exacto) - LIMITADO A LOS PRÓXIMOS 3 Y AL PRIMER AÑO.
     let monthsFound = 0;
-    let monthCount = 1; // Contador para el número del mes de aniversario (1 mes, 2 meses, etc.)
+    let monthCount = 1;
 
     while (monthsFound < 3) {
         const nextMilestoneDate = addMonths(streakStartDate, monthCount);
@@ -132,55 +138,50 @@ export default function App() {
         // Calcular el total de días desde el inicio de la racha hasta el hito mensual exacto
         const daysToMilestone = Math.ceil((nextMilestoneDate - streakStartDate) / MS_PER_DAY);
         
-        // 1a. Si el hito es después del primer año (365 días), detenemos la búsqueda de meses.
-        if (daysToMilestone > 365) {
+        // Si el hito es después del primer año (365 días), o si ya pasamos 12 meses, detenemos la búsqueda.
+        if (daysToMilestone > 365 || monthCount > 12) {
             break;
         }
         
-        // 1b. Si el hito no ha sido alcanzado, lo agregamos al mapa
+        // Si el hito no ha sido alcanzado, lo agregamos al mapa
         if (daysToMilestone > currentStreak) {
             futureMilestones.set(daysToMilestone, `${monthCount} Meses`);
             monthsFound++;
         }
         
         monthCount++;
-
-        // Fallback: Si el mes 12 ya pasó y no encontramos 3 hitos (ej: currentStreak=364), detenemos el bucle.
-        if (monthCount > 12 && monthsFound < 3) { 
-            break; 
-        }
     }
 
-    // 2. Múltiplos de 100 - LIMITADO A LOS PRÓXIMOS 3 (hasta 1000)
+    // 2. Múltiplos de 100, 250, 500, 1000, etc. (Hitos de números redondos)
+    
+    // Hitos de 100 (solo los próximos 3 hasta 1000)
     let hundredsFound = 0;
     for (let i = 100; i <= 1000; i += 100) { 
       if (i > currentStreak) {
-        // Solo agregar si no es un hito de mes más preciso que ya se calculó
         if (!futureMilestones.has(i)) {
-          futureMilestones.set(i, ''); // Sin etiqueta predefinida (se manejará abajo)
+          futureMilestones.set(i, ''); 
         }
         hundredsFound++;
         if (hundredsFound >= 3) break; 
       }
     }
     
-    // 3. Múltiplos de 250
+    // Hitos de 250, 500, 1000 (hasta el límite de 2000 días en el futuro)
     for (let i = 250; i <= limit; i += 250) {
       if (i > currentStreak && !futureMilestones.has(i)) {
         futureMilestones.set(i, '');
       }
     }
     
-    // 4. Múltiplos de 500 / 1000 (Grandes hitos)
+    // Hitos de 500 / 1000 (Grandes hitos - aseguramos su presencia)
     for (let i = 500; i <= limit; i += 500) {
       if (i > currentStreak && !futureMilestones.has(i)) {
         futureMilestones.set(i, '');
       }
     }
 
-    // 5. Múltiplos de Años (365, 730, etc.) - ¡Lógica Bisiesta Implementada!
+    // 3. Múltiplos de Años (365, 730, etc.) - Considera años bisiestos
     let yearCount = 1;
-    // Buscamos hasta 6 años en el futuro para un límite de 2000 días
     while (yearCount <= (limit / 365) + 1) { 
         // Clonar la fecha de inicio de la racha y añadir el número exacto de años
         const nextMilestoneDate = new Date(streakStartDate);
@@ -190,7 +191,7 @@ export default function App() {
         const daysToMilestone = Math.ceil((nextMilestoneDate - streakStartDate) / MS_PER_DAY);
         
         if (daysToMilestone > currentStreak) {
-            // La etiqueta se genera directamente aquí, reemplazando cualquier hito mensual o de 100 que pudiera coincidir
+            // Reemplaza hitos de 365/730/etc. calculados en la sección de 250/500/1000
             const label = `${yearCount} Año${yearCount > 1 ? 's' : ''}`;
             futureMilestones.set(daysToMilestone, label); 
         }
@@ -198,28 +199,25 @@ export default function App() {
         yearCount++;
     }
 
-    // Obtener solo las claves (días), ordenar y limitar
+    // Obtener solo las claves (días), ordenar y limitar a los próximos 15
     const sortedMilestones = Array.from(futureMilestones.keys())
       .filter(m => m > currentStreak)
       .sort((a, b) => a - b)
       .slice(0, 15);
 
-    // Crear objetos con la data completa
+    // Crear objetos con la data completa para el renderizado
     const results = sortedMilestones.map(m => {
       const daysDiff = m - currentStreak;
       const targetDate = new Date();
       targetDate.setDate(today.getDate() + daysDiff);
       
-      const label = futureMilestones.get(m); // Obtenemos la etiqueta precisa del mapa
+      const label = futureMilestones.get(m);
       
       // Determinar estilos
-      let isMajor = false; // Dorado (Años, 500s)
+      let isMajor = false; // Dorado (Años, 500s, 1000s)
       let isMedium = false; // Azul (Meses exactos)
 
-      // Identificar si es un hito anual exacto
       const isYearMilestone = label && label.includes('Año'); 
-
-      // Identificar si es un hito mensual exacto (no anual)
       const isMonthMilestone = label && label.includes('Meses');
 
       if (isYearMilestone || m % 500 === 0 || m % 1000 === 0) {
@@ -249,7 +247,7 @@ export default function App() {
         <div className="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Trophy className="w-8 h-8 text-yellow-400 fill-current" />
-            {/* Título actualizado */}
+            {/* Título */}
             <h1 className="text-xl font-bold text-gray-400 tracking-wide uppercase">Duo Streak Birthdays</h1>
           </div>
           <div className="bg-orange-100 px-3 py-1 rounded-xl flex items-center gap-2 border-2 border-orange-200">
@@ -273,7 +271,7 @@ export default function App() {
               pattern="[0-9]*"
               value={streak}
               onChange={handleStreakChange}
-              onBlur={handleBlur} // Agregado el evento onBlur
+              onBlur={handleBlur}
               placeholder="0"
               className={`w-full text-center text-4xl font-black text-gray-800 border-2 rounded-xl py-4 focus:outline-none focus:ring-4 transition-all placeholder-gray-300 ${
                 error 
@@ -321,7 +319,7 @@ export default function App() {
                     item.isMajor 
                       ? 'bg-yellow-400 border-yellow-600 text-white' 
                       : item.isMedium
-                        ? 'bg-blue-500 border-blue-700 text-white' // Nuevo estilo para meses
+                        ? 'bg-blue-500 border-blue-700 text-white' // Estilo para meses
                         : 'bg-white border-gray-200 text-gray-700'
                   }`}
                   role="listitem"
@@ -388,11 +386,9 @@ export default function App() {
           ) : (
             // Estado vacío / Bienvenida
             <div className="text-center py-10 opacity-50">
-              <img 
-                src="https://cdn-icons-png.flaticon.com/512/616/616490.png" 
-                alt="Icono calendario"
-                className="w-24 h-24 mx-auto mb-4 grayscale opacity-50" 
-                onError={(e) => e.target.style.display = 'none'}
+              <CalendarCheck 
+                className="w-24 h-24 mx-auto mb-4 text-gray-400 opacity-50" 
+                aria-label="Icono de Calendario de Bienvenida"
               />
               <p className="font-bold text-gray-400">¡Escribe tu racha arriba!</p>
             </div>
