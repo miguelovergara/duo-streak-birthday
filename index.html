@@ -90,24 +90,23 @@
           // Manejador cuando el input pierde el foco
           const handleBlur = () => {
               const currentStreak = Number(streak);
-              if (currentStreak > 0 && !isNaN(currentStreak)) {
+              if (currentStreak >= 0 && !isNaN(currentStreak)) {
                   const msg = generateMotivationalMessage(currentStreak);
                   if (msg) {
                       setMotivationalMessage(msg);
                       setShowMotivation(true);
                       
-                      // Ocultar el mensaje después de 4 segundos
+                      // Ocultar el mensaje después de 5 segundos
                       setTimeout(() => {
                           setShowMotivation(false);
                           setMotivationalMessage(''); // Limpiar el mensaje después de ocultarlo
-                      }, 4000); 
+                      }, 5*1000); 
                   }
               } else {
                    setMotivationalMessage('');
                    setShowMotivation(false);
               }
           };
-
 
           useEffect(() => {
             if (!streak) {
