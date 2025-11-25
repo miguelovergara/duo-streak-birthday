@@ -68,10 +68,7 @@
           const handleStreakChange = (e) => {
             const value = e.target.value;
             
-            // Si el usuario comienza a escribir, oculta el mensaje
-            if (showMotivation) {
-                setShowMotivation(false);
-            }
+            // Si el usuario comienza a escribir, oculta el mensaje: if (showMotivation) setShowMotivation(false);
 
             // Si el valor está vacío, limpia el error y la racha.
             if (value === '') {
