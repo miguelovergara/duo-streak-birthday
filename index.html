@@ -60,7 +60,7 @@
               } else if (s > 0) {
                   return `¡Excelente comienzo! Cada día cuenta. ¡Sigue así!`;
               } else {
-                  return `¡Hoy es un gran día para comenzar!`;
+                  return ``;
               } 
           };
 
@@ -90,7 +90,7 @@
           // Manejador cuando el input pierde el foco
           const handleBlur = () => {
               const currentStreak = Number(streak);
-              if (currentStreak >= 0 && !isNaN(currentStreak)) {
+              if (currentStreak > 0 && !isNaN(currentStreak)) {
                   const msg = generateMotivationalMessage(currentStreak);
                   if (msg) {
                       setMotivationalMessage(msg);
@@ -123,11 +123,11 @@
 
             // --- LÓGICA DE CÁLCULO DE HITOS ---
 
-            // 1. Múltiplos de 30 (Meses) - LIMITADO A LOS PRÓXIMOS 3
+            // 1. Múltiplos de 30 días (Meses) - LIMITADO A LOS PRÓXIMOS 3
             let monthsFound = 0;
-            for (let i = 30; i <= limit; i += 30) {
-              if (i > currentStreak) {
-                futureMilestones.add(i);
+            for (let days = 30; days <= limit; days += 30) {
+              if (days > currentStreak && days+currentStreak <= 365) {
+                futureMilestones.add(days);
                 monthsFound++;
                 if (monthsFound >= 3) break;
               }
