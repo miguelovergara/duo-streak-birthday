@@ -39,18 +39,13 @@ export default function App() {
 
   // Lógica para generar mensajes de sorpresa
   const generateMotivationalMessage = (s) => {
-      if (s > 1000) {
-          return `¡GUAU! ¡Más de un millar de días! Tu consistencia es épica. Sigue así.`;
-      } else if (s >= 500) {
-          return `¡Increíble, ${s} días! ¡Estás en la liga de los maestros de la racha!`;
-      } else if (s >= 365) {
-          return `¡Un año entero! ¡Qué logro tan inspirador! A seguir sumando.`;
-      } else if (s >= 100) {
-          return `¡Genial! ¡Ya tienes una racha de tres cifras! Nada te detiene.`;
-      } else if (s > 0) {
-          return `¡Excelente comienzo! Cada día cuenta. ¡Sigue así!`;
-      }
-      return '';
+      if (s > 1000)      return `¡GUAU! ¡Más de un millar de días! Tu consistencia es épica. Sigue así.`;
+      else if (s >= 730) return `¡Dos años! ¡Qué logro tan inspirador! A seguir sumando.`;
+      else if (s >= 500) return `¡Increíble, ${s} días! ¡Estás en la liga de los maestros de la racha!`;
+      else if (s >= 365) return `¡Un año entero! ¡Qué logro tan inspirador! A seguir sumando.`;
+      else if (s >= 100) return `¡Genial! ¡Ya tienes una racha de tres cifras! Nada te detiene.`;
+      else if (s > 0)    return `¡Excelente comienzo! Cada día cuenta. ¡Sigue así!`;
+      else               return '';
   };
 
   // Manejador del input para validar enteros >= 0
