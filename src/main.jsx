@@ -250,7 +250,7 @@ export default function App() {
           <div className="flex items-center gap-2">
             <Trophy className="w-8 h-8 text-yellow-400 fill-current" />
             {/* Título actualizado */}
-            <h1 className="text-xl font-bold text-gray-400 tracking-wide uppercase">Duo Streak Birthdays</h1>
+            <h1 className="text-xl font-bold text-gray-400 tracking-wide uppercase">Cumpleaños de Racha en Duolingo</h1>
           </div>
           <div className="bg-orange-100 px-3 py-1 rounded-xl flex items-center gap-2 border-2 border-orange-200">
              <Flame className="w-5 h-5 text-orange-500 fill-current animate-pulse" />
