@@ -290,7 +290,7 @@ export default function App() {
             </p>
           )}
           <p className="text-center text-gray-400 text-sm mt-4 font-medium">
-            Ingresa tus días para ver tus próximos logros
+            Ingresa tus días de racha en Duolingo para ver tus próximos logros!
           </p>
         </div>
 
