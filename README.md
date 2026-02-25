@@ -2,11 +2,6 @@
 
 **Duo Streak Birthday** is a React-based web application designed for Duolingo enthusiasts. It calculates and displays your future streak milestones, helping you stay motivated and plan for your next big "streak birthday".
 
-![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
-![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
-![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
-
 ## 🚀 Live Demo
 
 Check out the live application here: [duo-streak-birthday.vercel.app](https://duo-streak-birthday.vercel.app/)
@@ -21,11 +16,11 @@ Check out the live application here: [duo-streak-birthday.vercel.app](https://du
 
 ## 🛠️ Technology Stack
 
-- **Frontend:** [React](https://reactjs.org/)
-- **Build Tool:** [Vite](https://vitejs.dev/)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Frontend:** [![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)](https://reactjs.org/)
+- **Build Tool:** [![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+- **Styling:** [![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 - **Icons:** [Lucide React](https://lucide.dev/)
-- **Deployment:** [Vercel](https://vercel.com/)
+- **Deployment:** [![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
 
 ## 📦 Getting Started
 
@@ -54,7 +49,7 @@ To run this project locally, follow these steps:
 
 ## 📄 License
 
-This project is open-source and available under the MIT License.
+This project is open-source and available under the [GNU AGPL v3 License](LICENSE).
 
 ---
 Made with ❤️ for the Duolingo community.
