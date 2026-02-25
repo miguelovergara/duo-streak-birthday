@@ -1,18 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { Flame, Calendar, Trophy, Star } from 'lucide-react';
+import { Flame, Calendar, Trophy, Star, Languages, ChevronDown } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export default function App() {
+  const { t, i18n } = useTranslation();
   const [streak, setStreak] = useState('');
   const [milestones, setMilestones] = useState([]);
   const [error, setError] = useState('');
   
   // Nuevo estado para el mensaje motivacional
-  const [motivationalMessage, setMotivationalMessage] = useState('');
+  const [motivationalMessage, setMotivationalMessage] = useState(null);
   const [showMotivation, setShowMotivation] = useState(false);
 
-  // Función para formatear fechas en español
+  const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
+
+  const languages = [
+    { code: 'en', name: t('languages.en') },
+    { code: 'es', name: t('languages.es') },
+    { code: 'pt', name: t('languages.pt') },
+    { code: 'fr', name: t('languages.fr') },
+    { code: 'it', name: t('languages.it') },
+    { code: 'de', name: t('languages.de') },
+  ];
+
+  // Función para formatear fechas según el idioma
   const formatDate = (date) => {
-    return new Intl.DateTimeFormat('es-ES', {
+    return new Intl.DateTimeFormat(i18n.language, {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
@@ -39,17 +52,22 @@ export default function App() {
 
   // Lógica para generar mensajes de sorpresa
   const generateMotivationalMessage = (s) => {
-      if (s > 1000)      return `¡GUAU! ¡Más de un millar de días! Tu consistencia es épica. Sigue así.`;
-      else if (s == 730) return `¡Dos años! ¡Qué logro tan inspirador! A seguir sumando.`;
-      else if (s >= 500) return `¡Increíble, ${s} días! ¡Estás en la liga de los maestros de la racha!`;
-      else if (s == 365) return `¡Un año entero! ¡Qué logro tan inspirador! A seguir sumando.`;
-      else if (s == 180)  return `Un semestre! Felicitaciones! Sigue con esta racha`;
-      else if (s >= 100) return `¡Genial! ¡Ya tienes una racha de tres cifras! Nada te detiene.`;
-      else if (s == 90)  return `Tres meses! Felicitaciones! Sigue con esta racha`;
-      else if (s == 60)  return `Dos meses! Felicitaciones! Sigue con esta racha`;
-      else if (s == 30)  return `Un mes! Felicitaciones! Sigue con esta racha`;
-      else if (s > 0)    return `¡Excelente comienzo! Cada día cuenta. ¡Sigue así!`;
-      else               return '';
+      if (s > 1000)      return { key: 'motivation.gt1000' };
+      else if (s == 730) return { key: 'motivation.eq730' };
+      else if (s >= 500) return { key: 'motivation.ge500', options: { count: s } };
+      else if (s == 365) return { key: 'motivation.eq365' };
+      else if (s == 180)  return { key: 'motivation.eq180' };
+      else if (s >= 100) return { key: 'motivation.ge100' };
+      else if (s == 90)  return { key: 'motivation.eq90' };
+      else if (s == 60)  return { key: 'motivation.eq60' };
+      else if (s == 30)  return { key: 'motivation.eq30' };
+      else if (s > 0)    return { key: 'motivation.gt0' };
+      else               return null;
+  };
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+    setIsLangMenuOpen(false);
   };
 
   // Manejador del input para validar enteros >= 0
@@ -74,7 +92,7 @@ export default function App() {
       setError('');
     } else {
       // Mantiene el valor actual si la entrada es inválida pero permite la corrección
-      setError('Solo se permiten números enteros mayores o iguales a 0.');
+      setError(t('input.error'));
     }
   };
   
@@ -90,11 +108,11 @@ export default function App() {
               // Ocultar el mensaje después de 4 segundos
               setTimeout(() => {
                   setShowMotivation(false);
-                  setMotivationalMessage(''); // Limpiar el mensaje después de ocultarlo
+                  setMotivationalMessage(null); // Limpiar el mensaje después de ocultarlo
               }, 5*1000); 
           }
       } else {
-           setMotivationalMessage('');
+           setMotivationalMessage(null);
            setShowMotivation(false);
       }
   };
@@ -138,7 +156,7 @@ export default function App() {
         
         // 1b. Si el hito no ha sido alcanzado, lo agregamos al mapa
         if (daysToMilestone > currentStreak) {
-            futureMilestones.set(daysToMilestone, `${monthCount} Meses`);
+            futureMilestones.set(daysToMilestone, { key: 'milestone.month', count: monthCount });
             monthsFound++;
         }
         
@@ -190,8 +208,7 @@ export default function App() {
         
         if (daysToMilestone > currentStreak) {
             // La etiqueta se genera directamente aquí, reemplazando cualquier hito mensual o de 100 que pudiera coincidir
-            const label = `${yearCount} Año${yearCount > 1 ? 's' : ''}`;
-            futureMilestones.set(daysToMilestone, label); 
+            futureMilestones.set(daysToMilestone, { key: 'milestone.year', count: yearCount });
         }
 
         yearCount++;
@@ -209,17 +226,17 @@ export default function App() {
       const targetDate = new Date();
       targetDate.setDate(today.getDate() + daysDiff);
       
-      const label = futureMilestones.get(m); // Obtenemos la etiqueta precisa del mapa
+      const labelData = futureMilestones.get(m); // Obtenemos la etiqueta precisa del mapa
       
       // Determinar estilos
       let isMajor = false; // Dorado (Años, 500s)
       let isMedium = false; // Azul (Meses exactos)
 
       // Identificar si es un hito anual exacto
-      const isYearMilestone = label && label.includes('Año'); 
+      const isYearMilestone = labelData && labelData.key === 'milestone.year';
 
       // Identificar si es un hito mensual exacto (no anual)
-      const isMonthMilestone = label && label.includes('Meses');
+      const isMonthMilestone = labelData && labelData.key === 'milestone.month';
 
       if (isYearMilestone || m % 500 === 0 || m % 1000 === 0) {
         isMajor = true;
@@ -231,7 +248,7 @@ export default function App() {
         target: m,
         date: targetDate,
         daysLeft: daysDiff,
-        label: label,
+        labelData: labelData,
         isMajor: isMajor,
         isMedium: isMedium
       };
@@ -249,11 +266,35 @@ export default function App() {
           <div className="flex items-center gap-2">
             <Trophy className="w-8 h-8 text-yellow-400 fill-current" />
             {/* Título actualizado */}
-            <h1 className="text-xl font-bold text-gray-400 tracking-wide uppercase">Cumpleaños de Racha en Duolingo</h1>
+            <h1 className="text-xl font-bold text-gray-400 tracking-wide uppercase">{t('app.title')}</h1>
           </div>
-          <div className="bg-orange-100 px-3 py-1 rounded-xl flex items-center gap-2 border-2 border-orange-200">
-             <Flame className="w-5 h-5 text-orange-500 fill-current animate-pulse" />
-             <span className="font-bold text-orange-500">{streak || 0}</span>
+
+          <div className="relative">
+            <button
+              onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
+              className="bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded-xl flex items-center gap-2 border-2 border-gray-200 transition-colors"
+            >
+               <Languages className="w-5 h-5 text-gray-600" />
+               <span className="font-bold text-gray-600 uppercase text-sm">{i18n.language.split('-')[0]}</span>
+               <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${isLangMenuOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            {isLangMenuOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-2xl shadow-xl border-2 border-gray-100 py-2 z-50">
+                {languages.map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => changeLanguage(lang.code)}
+                    className={`w-full text-left px-4 py-2 hover:bg-gray-50 flex items-center justify-between ${
+                      i18n.language.startsWith(lang.code) ? 'text-green-600 font-bold' : 'text-gray-600'
+                    }`}
+                  >
+                    {lang.name}
+                    {i18n.language.startsWith(lang.code) && <div className="w-2 h-2 bg-green-500 rounded-full" />}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </header>
@@ -263,7 +304,7 @@ export default function App() {
         {/* Card de Input Principal */}
         <div className="bg-white rounded-2xl p-6 shadow-sm border-2 border-gray-200 mb-8">
           <label className="block text-center text-lg font-bold text-gray-700 mb-4">
-            ¿Cuál es tu racha actual?
+            {t('input.label')}
           </label>
           <div className="relative max-w-xs mx-auto">
             <input
@@ -273,7 +314,7 @@ export default function App() {
               value={streak}
               onChange={handleStreakChange}
               onBlur={handleBlur} // Agregado el evento onBlur
-              placeholder="0"
+              placeholder={t('input.placeholder')}
               className={`w-full text-center text-4xl font-black text-gray-800 border-2 rounded-xl py-4 focus:outline-none focus:ring-4 transition-all placeholder-gray-300 ${
                 error 
                   ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' 
@@ -293,7 +334,7 @@ export default function App() {
             </p>
           )}
           <p className="text-center text-gray-400 text-sm mt-4 font-medium">
-            Ingresa tus días de racha en Duolingo para ver tus próximos logros!
+            {t('input.helper')}
           </p>
         </div>
 
@@ -304,7 +345,7 @@ export default function App() {
                 style={{ opacity: showMotivation ? 1 : 0 }}
             >
                 <Star className="w-5 h-5 inline mr-2 text-green-600 fill-current animate-pulse" />
-                <span className="font-semibold">{motivationalMessage}</span>
+                <span className="font-semibold">{t(motivationalMessage.key, motivationalMessage.options)}</span>
             </div>
         )}
 
@@ -312,7 +353,7 @@ export default function App() {
         <div className="space-y-4">
           {streak && milestones.length > 0 ? (
             <>
-              <h2 className="text-gray-400 font-bold uppercase tracking-widest text-sm ml-2 mb-4">Tu Línea de Tiempo</h2>
+              <h2 className="text-gray-400 font-bold uppercase tracking-widest text-sm ml-2 mb-4">{t('timeline.title')}</h2>
               {milestones.map((item, index) => (
                 <div 
                   key={item.target}
@@ -349,7 +390,7 @@ export default function App() {
                             {item.target}
                           </span>
                           {/* Etiqueta de Mes/Año si existe */}
-                          {item.label && (
+                          {item.labelData && (
                             <span className={`text-xs font-bold px-2 py-0.5 rounded-lg uppercase tracking-wide ${
                               item.isMajor 
                                 ? 'bg-yellow-600/30 text-yellow-50' 
@@ -357,7 +398,7 @@ export default function App() {
                                   ? 'bg-blue-700/30 text-blue-50'
                                   : 'bg-gray-100 text-gray-500'
                             }`}>
-                              {item.label}
+                              {t(item.labelData.key, { count: item.labelData.count })}
                             </span>
                           )}
                         </div>
@@ -372,12 +413,12 @@ export default function App() {
                       <span className={`text-xs font-bold uppercase tracking-wide block ${
                         item.isMajor || item.isMedium ? 'text-white/70' : 'text-gray-400'
                       }`}>
-                        Faltan
+                        {t('milestone.days_left_label')}
                       </span>
                       <span className={`text-lg font-bold ${
                         item.isMajor || item.isMedium ? 'text-white' : 'text-gray-600'
                       }`}>
-                        {item.daysLeft} días
+                        {t('milestone.days_left', { count: item.daysLeft })}
                       </span>
                     </div>
                   </div>
@@ -393,14 +434,14 @@ export default function App() {
                 className="w-24 h-24 mx-auto mb-4 grayscale opacity-50" 
                 onError={(e) => e.target.style.display = 'none'}
               />
-              <p className="font-bold text-gray-400">¡Escribe tu racha arriba!</p>
+              <p className="font-bold text-gray-400">{t('empty.text')}</p>
             </div>
           )}
         </div>
       </main>
 
       <footer className="mt-12 text-center text-gray-400 text-xs font-bold uppercase tracking-widest pb-8">
-        Sigue así, ¡vas genial!
+        {t('footer.text')}
       </footer>
     </div>
   );
