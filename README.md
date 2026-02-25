@@ -19,8 +19,8 @@ Check out the live application here: [duo-streak-birthday.vercel.app](https://du
 - **Frontend:** [![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)](https://reactjs.org/)
 - **Build Tool:** [![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 - **Styling:** [![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-- **Icons:** [Lucide React](https://lucide.dev/)
 - **Deployment:** [![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
+- **Icons:** [Lucide React](https://lucide.dev/)
 
 ## 📦 Getting Started
 
@@ -46,6 +46,10 @@ To run this project locally, follow these steps:
    ```bash
    npm run build
    ```
+
+## Deployment status
+
+[![Vercel Deploy](https://vercelbadge.vercel.app/api/miguelovergara/duo-streak-birthday)](https://vercel.com/miguels-projects-933c481a/duo-streak-birthday)
 
 ## 📄 License
 
