@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './index.css'; // Importa los estilos de Tailwind y estilos base
+import './i18n';
 
 /**
  * Punto de entrada principal para la aplicación React.
