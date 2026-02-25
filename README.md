@@ -1,6 +1,6 @@
 # Duo Streak Birthday 🦉🔥
 
-**Duo Streak Birthday** is a React-based web application designed for Duolingo enthusiasts. It calculates and displays your future streak milestones, helping you stay motivated and plan for your next big "streak birthday".
+**Duo Streak Birthday** is a React-based web application designed for [Duolingo](https://www.duolingo.com/) enthusiasts. It calculates and displays your future streak milestones, helping you stay motivated and plan for your next big "streak birthday".
 
 ## 🚀 Live Demo
 
@@ -56,4 +56,4 @@ To run this project locally, follow these steps:
 This project is open-source and available under the [GNU AGPL v3 License](LICENSE).
 
 ---
-Made with ❤️ for the Duolingo community.
+Made with ❤️ for the [Duolingo community](https://github.com/duolingo).
