@@ -43,14 +43,6 @@ const resources = {
       },
       footer: {
         text: "Keep it up, you're doing great!"
-      },
-      languages: {
-        en: "English",
-        es: "Spanish",
-        pt: "Portuguese",
-        fr: "French",
-        it: "Italian",
-        de: "German"
       }
     }
   },
@@ -94,14 +86,6 @@ const resources = {
       },
       footer: {
         text: "¡Sigue así, vas genial!"
-      },
-      languages: {
-        en: "Inglés",
-        es: "Español",
-        pt: "Portugués",
-        fr: "Francés",
-        it: "Italiano",
-        de: "Alemán"
       }
     }
   },
@@ -145,14 +129,6 @@ const resources = {
       },
       footer: {
         text: "Continue assim, você está indo muito bem!"
-      },
-      languages: {
-        en: "Inglês",
-        es: "Espanhol",
-        pt: "Português",
-        fr: "Francês",
-        it: "Italiano",
-        de: "Alemão"
       }
     }
   },
@@ -195,15 +171,7 @@ const resources = {
         text: "Écrivez votre série ci-dessus !"
       },
       footer: {
-        text: "Continuez comme ça, vous assurez !"
-      },
-      languages: {
-        en: "Anglais",
-        es: "Espagnol",
-        pt: "Portugais",
-        fr: "Français",
-        it: "Italien",
-        de: "Allemand"
+        text: "Continue comme ça, vous assurez !"
       }
     }
   },
@@ -247,14 +215,6 @@ const resources = {
       },
       footer: {
         text: "Continua così, vai alla grande!"
-      },
-      languages: {
-        en: "Inglese",
-        es: "Spagnolo",
-        pt: "Portoghese",
-        fr: "Francese",
-        it: "Italiano",
-        de: "Tedesco"
       }
     }
   },
@@ -298,14 +258,6 @@ const resources = {
       },
       footer: {
         text: "Mach weiter so, du bist toll!"
-      },
-      languages: {
-        en: "Englisch",
-        es: "Spanisch",
-        pt: "Portugiesisch",
-        fr: "Französisch",
-        it: "Italienisch",
-        de: "Deutsch"
       }
     }
   }
