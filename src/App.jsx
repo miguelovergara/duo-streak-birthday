@@ -15,12 +15,12 @@ export default function App() {
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
 
   const languages = [
-    { code: 'en', name: t('languages.en') },
-    { code: 'es', name: t('languages.es') },
-    { code: 'pt', name: t('languages.pt') },
-    { code: 'fr', name: t('languages.fr') },
-    { code: 'it', name: t('languages.it') },
-    { code: 'de', name: t('languages.de') },
+    { code: 'en', name: "English" },
+    { code: 'es', name: "Español" },
+    { code: 'pt', name: "Português" },
+    { code: 'fr', name: "Français" },
+    { code: 'it', name: "Italiano" },
+    { code: 'de', name: "Deutsch" },
   ];
 
   // Función para formatear fechas según el idioma
