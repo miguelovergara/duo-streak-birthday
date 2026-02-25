@@ -47,7 +47,7 @@ To run this project locally, follow these steps:
    npm run build
    ```
 
-## Deployment status
+## ☁️ Deployment status
 
 [![Vercel Deploy](https://vercelbadge.vercel.app/api/miguelovergara/duo-streak-birthday)](https://vercel.com/miguels-projects-933c481a/duo-streak-birthday)
 
