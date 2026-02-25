@@ -33,7 +33,7 @@ To run this project locally, follow these steps:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/duolingo-streak-birthdays.git
+   git clone https://github.com/miguelovergara/duo-streak-birthday.git
    cd duolingo-streak-birthdays
    ```
 
