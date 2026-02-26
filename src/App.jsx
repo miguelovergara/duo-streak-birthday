@@ -275,7 +275,6 @@ export default function App() {
               className="bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded-xl flex items-center gap-2 border-2 border-gray-200 transition-colors"
             >
                <Languages className="w-5 h-5 text-gray-600" />
-               <span className="font-bold text-gray-600 uppercase text-sm">{i18n.language.split('-')[0]}</span>
                <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${isLangMenuOpen ? 'rotate-180' : ''}`} />
             </button>
 
