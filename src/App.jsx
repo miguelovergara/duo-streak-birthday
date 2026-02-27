@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Flame, Calendar, Trophy, Star, Languages, ChevronDown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -11,6 +11,10 @@ export default function App() {
   // Nuevo estado para el mensaje motivacional
   const [motivationalMessage, setMotivationalMessage] = useState(null);
   const [showMotivation, setShowMotivation] = useState(false);
+  const [shouldRenderMotivation, setShouldRenderMotivation] = useState(false);
+
+  const inactivityTimerRef = useRef(null);
+  const autoHideTimerRef = useRef(null);
 
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
 
@@ -70,14 +74,44 @@ export default function App() {
     setIsLangMenuOpen(false);
   };
 
+  const triggerMotivation = (currentStreak) => {
+    // Limpiar timers existentes
+    if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
+    if (autoHideTimerRef.current) clearTimeout(autoHideTimerRef.current);
+
+    const msg = generateMotivationalMessage(currentStreak);
+    if (msg) {
+      setMotivationalMessage(msg);
+      setShouldRenderMotivation(true);
+      // Pequeño delay para asegurar que el componente está en el DOM antes de iniciar la ráfaga de entrada (aunque Tailwind transition-opacity lo maneja bien si se monta con opacity-0)
+      setTimeout(() => setShowMotivation(true), 10);
+
+      // Ocultar después de 10 segundos
+      autoHideTimerRef.current = setTimeout(() => {
+        setShowMotivation(false);
+        // Esperar a que termine la animación de fade out (500ms) antes de dejar de renderizar
+        setTimeout(() => {
+          setShouldRenderMotivation(false);
+          setMotivationalMessage(null);
+        }, 500);
+      }, 10000);
+    }
+  };
+
   // Manejador del input para validar enteros >= 0
   const handleStreakChange = (e) => {
     const value = e.target.value;
     
-    // Si el usuario comienza a escribir, oculta el mensaje
-    if (showMotivation) {
+    // Si el usuario cambia el input, ocultamos inmediatamente
+    if (showMotivation || shouldRenderMotivation) {
         setShowMotivation(false);
+        setShouldRenderMotivation(false);
+        setMotivationalMessage(null);
     }
+
+    // Limpiar timers
+    if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
+    if (autoHideTimerRef.current) clearTimeout(autoHideTimerRef.current);
 
     // Si el valor está vacío, limpia el error y la racha.
     if (value === '') {
@@ -90,6 +124,14 @@ export default function App() {
     if (/^\d+$/.test(value)) {
       setStreak(value);
       setError('');
+
+      // Iniciar timer de inactividad de 3 segundos
+      const currentStreak = Number(value);
+      if (currentStreak > 0) {
+        inactivityTimerRef.current = setTimeout(() => {
+          triggerMotivation(currentStreak);
+        }, 3000);
+      }
     } else {
       // Mantiene el valor actual si la entrada es inválida pero permite la corrección
       setError(t('input.error'));
@@ -100,26 +142,20 @@ export default function App() {
   const handleBlur = () => {
       const currentStreak = Number(streak);
       if (currentStreak > 0 && !isNaN(currentStreak)) {
-          const msg = generateMotivationalMessage(currentStreak);
-          if (msg) {
-              setMotivationalMessage(msg);
-              setShowMotivation(true);
-              
-              // Ocultar el mensaje después de 4 segundos
-              setTimeout(() => {
-                  setShowMotivation(false);
-                  setMotivationalMessage(null); // Limpiar el mensaje después de ocultarlo
-              }, 5*1000); 
-          }
-      } else {
-           setMotivationalMessage(null);
-           setShowMotivation(false);
+          triggerMotivation(currentStreak);
       }
   };
 
   useEffect(() => {
     document.title = t('app.title').toUpperCase();
   }, [i18n.language, t]);
+
+  useEffect(() => {
+    return () => {
+      if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
+      if (autoHideTimerRef.current) clearTimeout(autoHideTimerRef.current);
+    };
+  }, []);
 
   useEffect(() => {
     if (!streak) {
@@ -343,18 +379,21 @@ export default function App() {
         </div>
 
         {/* Mensaje Motivacional Temporal */}
-        {showMotivation && motivationalMessage && (
-            <div 
-                className="bg-green-100 border-2 border-green-500 text-green-800 p-4 rounded-xl mb-6 text-center shadow-lg transition-opacity duration-500"
-                style={{ opacity: showMotivation ? 1 : 0 }}
-            >
-                <Star className="w-5 h-5 inline mr-2 text-green-600 fill-current animate-pulse" />
-                <span className="font-semibold">{t(motivationalMessage.key, motivationalMessage.options)}</span>
-            </div>
-        )}
+        <div className="relative h-0 z-20">
+          {shouldRenderMotivation && motivationalMessage && (
+              <div
+                  className={`absolute top-0 left-0 right-0 bg-green-100 border-2 border-green-500 text-green-800 p-4 rounded-xl text-center shadow-lg transition-all duration-500 ease-in-out ${
+                    showMotivation ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
+                  }`}
+              >
+                  <Star className="w-5 h-5 inline mr-2 text-green-600 fill-current animate-pulse" />
+                  <span className="font-semibold">{t(motivationalMessage.key, motivationalMessage.options)}</span>
+              </div>
+          )}
+        </div>
 
         {/* Lista de Resultados */}
-        <div className="space-y-4">
+        <div className="space-y-4 pt-6">
           {streak && milestones.length > 0 ? (
             <>
               <h2 className="text-gray-400 font-bold uppercase tracking-widest text-sm ml-2 mb-4">{t('timeline.title')}</h2>
