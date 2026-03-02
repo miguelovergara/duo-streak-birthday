@@ -68,8 +68,8 @@ export default function App() {
       else if (s == 90)  return { key: 'motivation.eq90' };
       else if (s == 60)  return { key: 'motivation.eq60' };
       else if (s == 30)  return { key: 'motivation.eq30' };
-      else if (s > 0)    return { key: 'motivation.gt1' };  
-      else if (s = 0)    return { key: 'motivation.gt0' };
+      else if (s > 0)    return { key: 'motivation.gt0' };  
+      else if (s = 0)    return { key: 'motivation.eq0' };
       else               return null;
   };
 
