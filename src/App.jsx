@@ -20,6 +20,8 @@ export default function App() {
   const lastScrollYRef = useRef(0);
 
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  const dropdownRef = useRef(null);
 
   const languages = [
     { code: 'en', name: "English" },
@@ -110,8 +112,8 @@ export default function App() {
       // Guardar la posición actual de scroll
       lastScrollYRef.current = window.scrollY;
 
-      // Ocultar después de 10 segundos
-      autoHideTimerRef.current = setTimeout(hideMotivation, 10000);
+      // Ocultar después de 5 segundos
+      autoHideTimerRef.current = setTimeout(hideMotivation, 5000);
     }
   };
 
@@ -138,6 +140,7 @@ export default function App() {
     if (/^\d+$/.test(value)) {
       setStreak(value);
       setError('');
+      setActiveDropdown(null);
 
       // Iniciar timer de inactividad de 3 segundos
       const currentStreak = Number(value);
@@ -163,6 +166,23 @@ export default function App() {
   useEffect(() => {
     document.title = t('app.title').toUpperCase();
   }, [i18n.language, t]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (activeDropdown && dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        // Only close if we didn't click on another milestone card
+        if (!event.target.closest('[role="listitem"]')) {
+          setActiveDropdown(null);
+        }
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [activeDropdown]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -323,7 +343,75 @@ export default function App() {
     });
     
     setMilestones(results);
-  }, [streak]);
+  }, [streak, t]);
+
+  const getEventTitle = (item) => {
+    if (item.labelData) {
+      const type = item.labelData.key === 'milestone.month' ? 'month' : 'year';
+      return t(`calendar.event_title_${type}`, { count: item.labelData.count });
+    }
+    return t('calendar.event_title_days', { count: item.target });
+  };
+
+  const formatCalendarDate = (date) => {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${y}${m}${d}`;
+  };
+
+  const getCalendarDates = (date) => {
+    const start = formatCalendarDate(date);
+    const nextDay = new Date(date);
+    nextDay.setDate(date.getDate() + 1);
+    const end = formatCalendarDate(nextDay);
+    return `${start}/${end}`;
+  };
+
+  const handleGoogleCalendar = (item) => {
+    const title = getEventTitle(item);
+    const dates = getCalendarDates(item.date);
+    const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${dates}&details=${encodeURIComponent(t('calendar.event_description'))}&sf=true&output=xml`;
+    window.open(url, '_blank');
+    setActiveDropdown(null);
+  };
+
+  const handleIcsDownload = (item) => {
+    const title = getEventTitle(item);
+    const start = formatCalendarDate(item.date);
+    const nextDay = new Date(item.date);
+    nextDay.setDate(item.date.getDate() + 1);
+    const end = formatCalendarDate(nextDay);
+
+    const icsContent = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//Duo Streak Birthday//EN',
+      'BEGIN:VEVENT',
+      `DTSTART;VALUE=DATE:${start}`,
+      `DTEND;VALUE=DATE:${end}`,
+      `SUMMARY:${title}`,
+      `DESCRIPTION:${t('calendar.event_description')}`,
+      'END:VEVENT',
+      'END:VCALENDAR'
+    ].join('\n');
+
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `duolingo-milestone-${item.target}.ics`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+    setActiveDropdown(null);
+  };
+
+  const toggleDropdown = (id, e) => {
+    e.stopPropagation();
+    setActiveDropdown(activeDropdown === id ? null : id);
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 font-sans text-gray-700 pb-10">
@@ -438,11 +526,14 @@ export default function App() {
               {milestones.map((item, index) => (
                 <div 
                   key={item.target}
-                  className={`relative group overflow-hidden rounded-2xl border-b-4 transition-all hover:scale-[1.02] ${
+                  onClick={(e) => toggleDropdown(item.target, e)}
+                  className={`relative group rounded-2xl border-b-4 transition-all cursor-pointer hover:scale-[1.02] ${
+                    activeDropdown === item.target ? 'z-40' : ''
+                  } ${
                     item.isMajor 
                       ? 'bg-yellow-400 border-yellow-600 text-white' 
                       : item.isMedium
-                        ? 'bg-blue-500 border-blue-700 text-white' // Nuevo estilo para meses
+                        ? 'bg-blue-500 border-blue-700 text-white'
                         : 'bg-white border-gray-200 text-gray-700'
                   }`}
                   role="listitem"
@@ -489,6 +580,15 @@ export default function App() {
                       </div>
                     </div>
 
+                    {/* Icono de Calendario a la derecha (75%) */}
+                    <div className="absolute left-[75%] top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+                      <Calendar className={`w-7 h-7 transition-colors ${
+                        item.isMajor || item.isMedium
+                          ? 'text-white/60 group-hover:text-white'
+                          : 'text-gray-300 group-hover:text-gray-600'
+                      }`} />
+                    </div>
+
                     {/* Días restantes */}
                     <div className="text-right">
                       <span className={`text-xs font-bold uppercase tracking-wide block ${
@@ -503,6 +603,37 @@ export default function App() {
                       </span>
                     </div>
                   </div>
+
+                  {/* Dropdown de Calendario */}
+                  {activeDropdown === item.target && (
+                    <div
+                      ref={dropdownRef}
+                      className="absolute left-[75%] -translate-x-1/2 top-full mt-1 w-48 bg-white rounded-2xl shadow-xl border-2 border-gray-100 py-2 z-50 text-gray-700 animate-in fade-in zoom-in duration-200"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <button
+                        onClick={() => handleGoogleCalendar(item)}
+                        className="w-full text-left px-4 py-2 hover:bg-gray-50 flex items-center gap-2 transition-colors"
+                      >
+                        <div className="w-2 h-2 bg-blue-500 rounded-full" />
+                        <span className="font-medium text-sm">{t('calendar.google')}</span>
+                      </button>
+                      <button
+                        onClick={() => handleIcsDownload(item)}
+                        className="w-full text-left px-4 py-2 hover:bg-gray-50 flex items-center gap-2 transition-colors"
+                      >
+                        <div className="w-2 h-2 bg-gray-400 rounded-full" />
+                        <span className="font-medium text-sm">{t('calendar.icloud')}</span>
+                      </button>
+                      <button
+                        onClick={() => handleIcsDownload(item)}
+                        className="w-full text-left px-4 py-2 hover:bg-gray-50 flex items-center gap-2 transition-colors"
+                      >
+                        <div className="w-2 h-2 bg-gray-400 rounded-full" />
+                        <span className="font-medium text-sm">{t('calendar.ical')}</span>
+                      </button>
+                    </div>
+                  )}
                 </div>
               ))}
             </>

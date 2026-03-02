@@ -6,7 +6,7 @@ const resources = {
   en: {
     translation: {
       app: {
-        title: "Duolingo Streak Calculator"
+        title: "Duolingo Streak Birthdays"
       },
       input: {
         label: "What is your current streak?",
@@ -38,6 +38,18 @@ const resources = {
         days_left: "{{count}} day",
         days_left_other: "{{count}} days"
       },
+      calendar: {
+        google: "Google Calendar",
+        icloud: "iCloud",
+        ical: "iCal",
+        event_title_days: "Duolingo Milestone: {{count}} day",
+        event_title_days_other: "Duolingo Milestone: {{count}} days",
+        event_title_month: "Duolingo Milestone: {{count}} Month",
+        event_title_month_other: "Duolingo Milestone: {{count}} Months",
+        event_title_year: "Duolingo Milestone: {{count}} Year",
+        event_title_year_other: "Duolingo Milestone: {{count}} Years",
+        event_description: "Congratulations! You reached a new milestone in your Duolingo streak. Keep up the great work!",
+      },
       info: {
         title1: "What is a Duolingo streak and why is it so important?",
         text1: "A Duolingo streak represents the number of consecutive days you've completed a lesson. It's the driving force behind the platform's gamification; losing it can be demotivating, while maintaining it reinforces the daily habit of learning a new language. A long streak not only demonstrates consistency but also becomes a personal trophy within the learning community.",
@@ -55,7 +67,7 @@ const resources = {
   es: {
     translation: {
       app: {
-        title: "Calculadora de Racha en Duolingo"
+        title: "Cumpleaños de Racha en Duolingo"
       },
       input: {
         label: "¿Cuál es tu racha actual?",
@@ -87,6 +99,18 @@ const resources = {
         days_left: "{{count}} día",
         days_left_other: "{{count}} días"
       },
+      calendar: {
+        google: "Google Calendar",
+        icloud: "iCloud",
+        ical: "iCal",
+        event_title_days: "Hito de Duolingo: {{count}} día",
+        event_title_days_other: "Hito de Duolingo: {{count}} días",
+        event_title_month: "Hito de Duolingo: {{count}} Mes",
+        event_title_month_other: "Hito de Duolingo: {{count}} Meses",
+        event_title_year: "Hito de Duolingo: {{count}} Año",
+        event_title_year_other: "Hito de Duolingo: {{count}} Años",
+        event_description: "¡Felicidades! Has alcanzado un nuevo hito en tu racha de Duolingo. ¡Sigue así!",
+      },
       info: {
         title1: "¿Qué es una racha de Duolingo y por qué es tan importante?",
         text1: "Una racha de Duolingo representa el número de días consecutivos que has completado una lección. Es la fuerza impulsora detrás de la gamificación de la plataforma; perderla puede ser desmotivador, mientras que mantenerla refuerza el hábito diario de aprender un nuevo idioma. Una racha larga no solo demuestra constancia, sino que también se convierte en un trofeo personal dentro de la comunidad de aprendizaje.",
@@ -104,7 +128,7 @@ const resources = {
   pt: {
     translation: {
       app: {
-        title: "Calculadora de Sequência Duolingo"
+        title: "Aniversários de Ofensiva no Duolingo"
       },
       input: {
         label: "Qual é a sua ofensiva atual?",
@@ -136,6 +160,18 @@ const resources = {
         days_left: "{{count}} dia",
         days_left_other: "{{count}} dias"
       },
+      calendar: {
+        google: "Google Calendar",
+        icloud: "iCloud",
+        ical: "iCal",
+        event_title_days: "Marco do Duolingo: {{count}} dia",
+        event_title_days_other: "Marco do Duolingo: {{count}} dias",
+        event_title_month: "Marco do Duolingo: {{count}} Mês",
+        event_title_month_other: "Marco do Duolingo: {{count}} Meses",
+        event_title_year: "Marco do Duolingo: {{count}} Ano",
+        event_title_year_other: "Marco do Duolingo: {{count}} Anos",
+        event_description: "Parabéns! Você alcançou um novo marco na sua ofensiva do Duolingo. Continue assim!",
+      },
       info: {
         title1: "O que é uma ofensiva no Duolingo e por que ela é tão importante?",
         text1: "Uma ofensiva no Duolingo representa o número de dias consecutivos em que você completou uma lição. É a força motriz por trás da gamificação da plataforma; perdê-la pode ser desmotivador, enquanto mantê-la reforça o hábito diário de aprender um novo idioma. Uma longa ofensiva não apenas demonstra consistência, mas também se torna um troféu pessoal dentro da comunidade de aprendizagem.",
@@ -153,7 +189,7 @@ const resources = {
   fr: {
     translation: {
       app: {
-        title: "Calculateur de séries Duolingo"
+        title: "Anniversaires de Série Duolingo"
       },
       input: {
         label: "Quelle est votre série actuelle ?",
@@ -185,6 +221,18 @@ const resources = {
         days_left: "{{count}} jour",
         days_left_other: "{{count}} jours"
       },
+      calendar: {
+        google: "Google Calendar",
+        icloud: "iCloud",
+        ical: "iCal",
+        event_title_days: "Jalon Duolingo : {{count}} jour",
+        event_title_days_other: "Jalon Duolingo : {{count}} jours",
+        event_title_month: "Jalon Duolingo : {{count}} Mois",
+        event_title_month_other: "Jalon Duolingo : {{count}} Mois",
+        event_title_year: "Jalon Duolingo : {{count}} An",
+        event_title_year_other: "Jalon Duolingo : {{count}} Ans",
+        event_description: "Félicitations ! Vous avez atteint un nouveau jalon dans votre série Duolingo. Continuez comme ça !",
+      },
       info: {
         title1: "Qu'est-ce qu'une série Duolingo et pourquoi est-ce si important ?",
         text1: "Une série Duolingo représente le nombre de jours consécutifs où vous avez terminé une leçon. C'est le moteur de la gamification de la plateforme ; la perdre peut être démotivant, tandis que la maintenir renforce l'habitude quotidienne d'apprendre une nouvelle langue. Une longue série démontre non seulement la régularité, mais devient également un trophée personnel au sein de la communauté d'apprentissage.",
@@ -202,7 +250,7 @@ const resources = {
   it: {
     translation: {
       app: {
-        title: "Calcolatore di serie Duolingo"
+        title: "Compleanni dello Slancio Duolingo"
       },
       input: {
         label: "Qual è il tuo slancio attuale?",
@@ -234,6 +282,18 @@ const resources = {
         days_left: "{{count}} giorno",
         days_left_other: "{{count}} giorni"
       },
+      calendar: {
+        google: "Google Calendar",
+        icloud: "iCloud",
+        ical: "iCal",
+        event_title_days: "Traguardo Duolingo: {{count}} giorno",
+        event_title_days_other: "Traguardo Duolingo: {{count}} giorni",
+        event_title_month: "Traguardo Duolingo: {{count}} Mese",
+        event_title_month_other: "Traguardo Duolingo: {{count}} Mesi",
+        event_title_year: "Traguardo Duolingo: {{count}} Anno",
+        event_title_year_other: "Traguardo Duolingo: {{count}} Anni",
+        event_description: "Congratulazioni! Hai raggiunto un nuovo traguardo nel tuo slancio Duolingo. Continua così!",
+      },
       info: {
         title1: "Cos'è uno slancio di Duolingo e perché è così importante?",
         text1: "Uno slancio di Duolingo rappresenta il numero di giorni consecutivi in cui hai completato una lezione. È la forza trainante della gamification della piattaforma; perderlo può essere demotivante, mentre mantenerlo rafforza l'abitudine quotidiana di imparare una nuova lingua. Un lungo slancio non solo dimostra costanza, ma diventa anche un trofeo personale all'interno della comunità di apprendimento.",
@@ -251,7 +311,7 @@ const resources = {
   de: {
     translation: {
       app: {
-        title: "Duolingo-Streak-Rechner"
+        title: "Duolingo Streak-Geburtstage"
       },
       input: {
         label: "Wie hoch ist dein aktueller Streak?",
@@ -282,6 +342,18 @@ const resources = {
         days_left_label: "Noch",
         days_left: "{{count}} Tag",
         days_left_other: "{{count}} Tage"
+      },
+      calendar: {
+        google: "Google Calendar",
+        icloud: "iCloud",
+        ical: "iCal",
+        event_title_days: "Duolingo Meilenstein: {{count}} Tag",
+        event_title_days_other: "Duolingo Meilenstein: {{count}} Tage",
+        event_title_month: "Duolingo Meilenstein: {{count}} Monat",
+        event_title_month_other: "Duolingo Meilenstein: {{count}} Monate",
+        event_title_year: "Duolingo Meilenstein: {{count}} Jahr",
+        event_title_year_other: "Duolingo Meilenstein: {{count}} Jahre",
+        event_description: "Herzlichen Glückwunsch! Du hast einen neuen Meilenstein in deinem Duolingo-Streak erreicht. Mach weiter so!",
       },
       info: {
         title1: "Was ist ein Duolingo-Streak und warum ist er so wichtig?",
