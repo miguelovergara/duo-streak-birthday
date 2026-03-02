@@ -48,6 +48,7 @@ const resources = {
         event_title_month_other: "Duolingo Milestone: {{count}} Months",
         event_title_year: "Duolingo Milestone: {{count}} Year",
         event_title_year_other: "Duolingo Milestone: {{count}} Years",
+        event_description: "Congratulations! You reached a new milestone in your Duolingo streak. Keep up the great work!",
       },
       info: {
         title1: "What is a Duolingo streak and why is it so important?",
@@ -108,6 +109,7 @@ const resources = {
         event_title_month_other: "Hito de Duolingo: {{count}} Meses",
         event_title_year: "Hito de Duolingo: {{count}} Año",
         event_title_year_other: "Hito de Duolingo: {{count}} Años",
+        event_description: "¡Felicidades! Has alcanzado un nuevo hito en tu racha de Duolingo. ¡Sigue así!",
       },
       info: {
         title1: "¿Qué es una racha de Duolingo y por qué es tan importante?",
@@ -168,6 +170,7 @@ const resources = {
         event_title_month_other: "Marco do Duolingo: {{count}} Meses",
         event_title_year: "Marco do Duolingo: {{count}} Ano",
         event_title_year_other: "Marco do Duolingo: {{count}} Anos",
+        event_description: "Parabéns! Você alcançou um novo marco na sua ofensiva do Duolingo. Continue assim!",
       },
       info: {
         title1: "O que é uma ofensiva no Duolingo e por que ela é tão importante?",
@@ -228,6 +231,7 @@ const resources = {
         event_title_month_other: "Jalon Duolingo : {{count}} Mois",
         event_title_year: "Jalon Duolingo : {{count}} An",
         event_title_year_other: "Jalon Duolingo : {{count}} Ans",
+        event_description: "Félicitations ! Vous avez atteint un nouveau jalon dans votre série Duolingo. Continuez comme ça !",
       },
       info: {
         title1: "Qu'est-ce qu'une série Duolingo et pourquoi est-ce si important ?",
@@ -288,6 +292,7 @@ const resources = {
         event_title_month_other: "Traguardo Duolingo: {{count}} Mesi",
         event_title_year: "Traguardo Duolingo: {{count}} Anno",
         event_title_year_other: "Traguardo Duolingo: {{count}} Anni",
+        event_description: "Congratulazioni! Hai raggiunto un nuovo traguardo nel tuo slancio Duolingo. Continua così!",
       },
       info: {
         title1: "Cos'è uno slancio di Duolingo e perché è così importante?",
@@ -348,6 +353,7 @@ const resources = {
         event_title_month_other: "Duolingo Meilenstein: {{count}} Monate",
         event_title_year: "Duolingo Meilenstein: {{count}} Jahr",
         event_title_year_other: "Duolingo Meilenstein: {{count}} Jahre",
+        event_description: "Herzlichen Glückwunsch! Du hast einen neuen Meilenstein in deinem Duolingo-Streak erreicht. Mach weiter so!",
       },
       info: {
         title1: "Was ist ein Duolingo-Streak und warum ist er so wichtig?",

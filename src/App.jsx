@@ -112,8 +112,8 @@ export default function App() {
       // Guardar la posición actual de scroll
       lastScrollYRef.current = window.scrollY;
 
-      // Ocultar después de 10 segundos
-      autoHideTimerRef.current = setTimeout(hideMotivation, 10000);
+      // Ocultar después de 5 segundos
+      autoHideTimerRef.current = setTimeout(hideMotivation, 5000);
     }
   };
 
@@ -371,7 +371,7 @@ export default function App() {
   const handleGoogleCalendar = (item) => {
     const title = getEventTitle(item);
     const dates = getCalendarDates(item.date);
-    const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${dates}&details=${encodeURIComponent(t('info.text1'))}&sf=true&output=xml`;
+    const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${dates}&details=${encodeURIComponent(t('calendar.event_description'))}&sf=true&output=xml`;
     window.open(url, '_blank');
     setActiveDropdown(null);
   };
@@ -391,7 +391,7 @@ export default function App() {
       `DTSTART;VALUE=DATE:${start}`,
       `DTEND;VALUE=DATE:${end}`,
       `SUMMARY:${title}`,
-      `DESCRIPTION:${t('info.text1')}`,
+      `DESCRIPTION:${t('calendar.event_description')}`,
       'END:VEVENT',
       'END:VCALENDAR'
     ].join('\n');
@@ -528,6 +528,8 @@ export default function App() {
                   key={item.target}
                   onClick={(e) => toggleDropdown(item.target, e)}
                   className={`relative group rounded-2xl border-b-4 transition-all cursor-pointer hover:scale-[1.02] ${
+                    activeDropdown === item.target ? 'z-40' : ''
+                  } ${
                     item.isMajor 
                       ? 'bg-yellow-400 border-yellow-600 text-white' 
                       : item.isMedium
