@@ -70,7 +70,7 @@ export default function App() {
       else if (s == 30)  return { key: 'motivation.eq30' };
       else if (s > 0)    return { key: 'motivation.gt0' };  
       else if (s = 0)    return { key: 'motivation.eq0' };
-      else               return null;
+      else               return 'default message' ;
   };
 
   const changeLanguage = (lng) => {
