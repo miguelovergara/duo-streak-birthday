@@ -371,9 +371,9 @@ export default function App() {
         
         {/* Card de Input Principal */}
         <div className="bg-white rounded-2xl p-6 shadow-sm border-2 border-gray-200 mb-8">
-          <label className="block text-center text-lg font-bold text-gray-700 mb-4">
+          <h1 id="streak-label" className="block text-center text-lg font-bold text-gray-800 mb-4">
             {t('input.label')}
-          </label>
+          </h1>
           <div className="relative max-w-xs mx-auto">
             <input
               type="text"
@@ -390,6 +390,7 @@ export default function App() {
               }`}
               aria-invalid={!!error}
               aria-describedby="input-error"
+              aria-labelledby="streak-label"
               autoFocus
             />
             <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
@@ -505,22 +506,25 @@ export default function App() {
             </>
           ) : (
             // Estado vacío / Bienvenida
-            <div className="text-center py-10 opacity-50">
-              <img 
-                src="https://cdn-icons-png.flaticon.com/512/616/616490.png" 
-                alt="Icono calendario"
-                className="w-24 h-24 mx-auto mb-4 grayscale opacity-50" 
-                onError={(e) => e.target.style.display = 'none'}
-              />
-              <p className="font-bold text-gray-400">{t('empty.text')}</p>
+            <div className="text-gray-800 space-y-8">
+              <section>
+                <h1 className="text-2xl font-bold mb-4">{t('info.title1')}</h1>
+                <p className="leading-relaxed">{t('info.text1')}</p>
+              </section>
+
+              <section>
+                <h2 className="text-xl font-bold mb-4">{t('info.title2')}</h2>
+                <p className="leading-relaxed mb-4">{t('info.text2')}</p>
+                <p className="leading-relaxed mb-2">{t('info.text3')}</p>
+                <ul className="list-disc pl-5 space-y-2">
+                  <li>{t('info.bullet1')}</li>
+                  <li>{t('info.bullet2')}</li>
+                </ul>
+              </section>
             </div>
           )}
         </div>
       </main>
-
-      <footer className="mt-12 text-center text-gray-400 text-xs font-bold uppercase tracking-widest pb-8">
-        {t('footer.text')}
-      </footer>
       <Analytics />
     </div>
   );

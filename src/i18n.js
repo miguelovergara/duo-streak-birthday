@@ -38,11 +38,14 @@ const resources = {
         days_left: "{{count}} day",
         days_left_other: "{{count}} days"
       },
-      empty: {
-        text: "Type your streak above!"
-      },
-      footer: {
-        text: "Keep it up, you're doing great!"
+      info: {
+        title1: "What is a Duolingo streak and why is it so important?",
+        text1: "A Duolingo streak represents the number of consecutive days you've completed a lesson. It's the driving force behind the platform's gamification; losing it can be demotivating, while maintaining it reinforces the daily habit of learning a new language. A long streak not only demonstrates consistency but also becomes a personal trophy within the learning community.",
+        title2: "Why track your streak with our tool?",
+        text2: "While the official app shows you your current streak number, our Duolingo streak calculator goes a step further. We help you visualize specific milestones and \"birthdays\" in your streak (like your first 100, 365, or 1000 days).",
+        text3: "By entering your days of streak, our tool analyzes your stats so you can:",
+        bullet1: "Predict milestones: Know exactly when you'll reach your next big goal.",
+        bullet2: "Visualize your progress: Understand your consistency through a clean and optimized interface."
       }
     }
   },
@@ -81,11 +84,14 @@ const resources = {
         days_left: "{{count}} día",
         days_left_other: "{{count}} días"
       },
-      empty: {
-        text: "¡Escribe tu racha arriba!"
-      },
-      footer: {
-        text: "¡Sigue así, vas genial!"
+      info: {
+        title1: "¿Qué es una racha de Duolingo y por qué es tan importante?",
+        text1: "Una racha de Duolingo representa el número de días consecutivos que has completado una lección. Es la fuerza impulsora detrás de la gamificación de la plataforma; perderla puede ser desmotivador, mientras que mantenerla refuerza el hábito diario de aprender un nuevo idioma. Una racha larga no solo demuestra constancia, sino que también se convierte en un trofeo personal dentro de la comunidad de aprendizaje.",
+        title2: "¿Por qué seguir tu racha con nuestra herramienta?",
+        text2: "Aunque la aplicación oficial te muestra tu número de racha actual, nuestra calculadora de racha de Duolingo va un paso más allá. Te ayudamos a visualizar hitos específicos y \"cumpleaños\" en tu racha (como tus primeros 100, 365 o 1000 días).",
+        text3: "Al ingresar tus días de racha, nuestra herramienta analiza tus estadísticas para que puedas:",
+        bullet1: "Predecir hitos: Sabe exactamente cuándo alcanzarás tu próximo gran objetivo.",
+        bullet2: "Visualizar tu progreso: Comprende tu consistencia a través de una interfaz limpia y optimizada."
       }
     }
   },
@@ -124,11 +130,14 @@ const resources = {
         days_left: "{{count}} dia",
         days_left_other: "{{count}} dias"
       },
-      empty: {
-        text: "Digite sua ofensiva acima!"
-      },
-      footer: {
-        text: "Continue assim, você está indo muito bem!"
+      info: {
+        title1: "O que é uma ofensiva no Duolingo e por que ela é tão importante?",
+        text1: "Uma ofensiva no Duolingo representa o número de dias consecutivos em que você completou uma lição. É a força motriz por trás da gamificação da plataforma; perdê-la pode ser desmotivador, enquanto mantê-la reforça o hábito diário de aprender um novo idioma. Uma longa ofensiva não apenas demonstra consistência, mas também se torna um troféu pessoal dentro da comunidade de aprendizagem.",
+        title2: "Por que acompanhar sua ofensiva com nossa ferramenta?",
+        text2: "Embora o aplicativo oficial mostre seu número atual de ofensiva, nossa calculadora de ofensiva do Duolingo vai um passo além. Ajudamos você a visualizar marcos específicos e \"aniversários\" em sua ofensiva (como seus primeiros 100, 365 ou 1000 dias).",
+        text3: "Ao inserir seus dias de ofensiva, nossa ferramenta analisa suas estatísticas para que você possa:",
+        bullet1: "Prever marcos: Saiba exatamente quando você alcançará sua próxima grande meta.",
+        bullet2: "Visualizar seu progresso: Entenda sua consistência por meio de uma interface limpa e otimizada."
       }
     }
   },
@@ -167,11 +176,14 @@ const resources = {
         days_left: "{{count}} jour",
         days_left_other: "{{count}} jours"
       },
-      empty: {
-        text: "Écrivez votre série ci-dessus !"
-      },
-      footer: {
-        text: "Continue comme ça, vous assurez !"
+      info: {
+        title1: "Qu'est-ce qu'une série Duolingo et pourquoi est-ce si important ?",
+        text1: "Une série Duolingo représente le nombre de jours consécutifs où vous avez terminé une leçon. C'est le moteur de la gamification de la plateforme ; la perdre peut être démotivant, tandis que la maintenir renforce l'habitude quotidienne d'apprendre une nouvelle langue. Une longue série démontre non seulement la régularité, mais devient également un trophée personnel au sein de la communauté d'apprentissage.",
+        title2: "Pourquoi suivre votre série avec notre outil ?",
+        text2: "Alors que l'application officielle vous indique votre nombre de jours de série actuel, notre calculateur de série Duolingo va plus loin. Nous vous aidons à visualiser les étapes spécifiques et les « anniversaires » de votre série (comme vos 100, 365 ou 1000 premiers jours).",
+        text3: "En saisissant vos jours de série, notre outil analyse vos statistiques afin que vous puissiez :",
+        bullet1: "Prédire les jalons : sachez exactement quand vous atteindrez votre prochain grand objectif.",
+        bullet2: "Visualisez vos progrès : comprenez votre régularité grâce à une interface propre et optimisée."
       }
     }
   },
@@ -210,11 +222,14 @@ const resources = {
         days_left: "{{count}} giorno",
         days_left_other: "{{count}} giorni"
       },
-      empty: {
-        text: "Scrivi il tuo slancio qui sopra!"
-      },
-      footer: {
-        text: "Continua così, vai alla grande!"
+      info: {
+        title1: "Cos'è uno slancio di Duolingo e perché è così importante?",
+        text1: "Uno slancio di Duolingo rappresenta il numero di giorni consecutivi in cui hai completato una lezione. È la forza trainante della gamification della piattaforma; perderlo può essere demotivante, mentre mantenerlo rafforza l'abitudine quotidiana di imparare una nuova lingua. Un lungo slancio non solo dimostra costanza, ma diventa anche un trofeo personale all'interno della comunità di apprendimento.",
+        title2: "Perché monitorare il tuo slancio con il nostro strumento?",
+        text2: "Mentre l'app ufficiale ti mostra il numero del tuo slancio attuale, il nostro calcolatore di slancio Duolingo fa un passo avanti. Ti aiutiamo a visualizzare traguardi specifici e \"compleanni\" nel tuo slancio (come i tuoi primi 100, 365 o 1000 giorni).",
+        text3: "Inserendo i tuoi giorni di slancio, il nostro strumento analizza le tue statistiche così puoi:",
+        bullet1: "Prevedere i traguardi: sappi esattamente quando raggiungerai il tuo prossimo grande obiettivo.",
+        bullet2: "Visualizzare i tuoi progressi: comprendi la tua costanza attraverso un'interfaccia pulita e ottimizzata."
       }
     }
   },
@@ -253,11 +268,14 @@ const resources = {
         days_left: "{{count}} Tag",
         days_left_other: "{{count}} Tage"
       },
-      empty: {
-        text: "Gib deinen Streak oben ein!"
-      },
-      footer: {
-        text: "Mach weiter so, du bist toll!"
+      info: {
+        title1: "Was ist ein Duolingo-Streak und warum ist er so wichtig?",
+        text1: "Ein Duolingo-Streak stellt die Anzahl der aufeinanderfolgenden Tage dar, an denen du eine Lektion abgeschlossen hast. Er ist die treibende Kraft hinter der Gamifizierung der Plattform; ihn zu verlieren kann demotivierend sein, während sein Erhalt die tägliche Gewohnheit des Erlernens einer neuen Sprache verstärkt. Ein langer Streak beweist nicht nur Beständigkeit, sondern wird auch zu einer persönlichen Trophäe innerhalb der Lerngemeinschaft.",
+        title2: "Warum solltest du deinen Streak mit unserem Tool verfolgen?",
+        text2: "Während die offizielle App dir deine aktuelle Streak-Zahl anzeigt, geht unser Duolingo-Streak-Rechner einen Schritt weiter. Wir helfen dir, bestimmte Meilensteine und „Geburtstage“ in deinem Streak zu visualisieren (wie deine ersten 100, 365 oder 1000 Tage).",
+        text3: "Durch Eingabe deiner Streak-Tage analysiert unser Tool deine Statistiken, sodass du:",
+        bullet1: "Meilensteine vorhersagen kannst: Erfahre genau, wann du dein nächstes großes Ziel erreichst.",
+        bullet2: "Deinen Fortschritt visualisieren kannst: Verstehe deine Beständigkeit durch eine saubere und optimierte Benutzeroberfläche."
       }
     }
   }
