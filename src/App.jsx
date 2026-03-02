@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Flame, Calendar, Trophy, Star, Languages, ChevronDown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Analytics } from '@vercel/analytics/react';
 
 export default function App() {
   const { t, i18n } = useTranslation();
@@ -447,6 +448,7 @@ export default function App() {
       <footer className="mt-12 text-center text-gray-400 text-xs font-bold uppercase tracking-widest pb-8">
         {t('footer.text')}
       </footer>
+      <Analytics />
     </div>
   );
 }
