@@ -46,6 +46,9 @@ const resources = {
         text3: "By entering your days of streak, our tool analyzes your stats so you can:",
         bullet1: "Predict milestones: Know exactly when you'll reach your next big goal.",
         bullet2: "Visualize your progress: Understand your consistency through a clean and optimized interface."
+      },
+      footer: {
+        made_by: "Made by"
       }
     }
   },
@@ -92,6 +95,9 @@ const resources = {
         text3: "Al ingresar tus días de racha, nuestra herramienta analiza tus estadísticas para que puedas:",
         bullet1: "Predecir hitos: Sabe exactamente cuándo alcanzarás tu próximo gran objetivo.",
         bullet2: "Visualizar tu progreso: Comprende tu consistencia a través de una interfaz limpia y optimizada."
+      },
+      footer: {
+        made_by: "Hecho por"
       }
     }
   },
@@ -116,7 +122,7 @@ const resources = {
         eq90: "Três meses! Parabéns! Continue com essa ofensiva.",
         eq60: "Dois meses! Parabéns! Continue com essa ofensiva.",
         eq30: "Um mês! Parabéns! Continue com essa ofensiva.",
-        gt0: "Excelente começo! Cada dia conta. Continue assim!"
+        gt0: "Excelente começo! Cada día conta. Continue assim!"
       },
       timeline: {
         title: "Sua Linha do Tempo"
@@ -138,6 +144,9 @@ const resources = {
         text3: "Ao inserir seus dias de ofensiva, nossa ferramenta analisa suas estatísticas para que você possa:",
         bullet1: "Prever marcos: Saiba exatamente quando você alcançará sua próxima grande meta.",
         bullet2: "Visualizar seu progresso: Entenda sua consistência por meio de uma interface limpa e otimizada."
+      },
+      footer: {
+        made_by: "Feito por"
       }
     }
   },
@@ -184,6 +193,9 @@ const resources = {
         text3: "En saisissant vos jours de série, notre outil analyse vos statistiques afin que vous puissiez :",
         bullet1: "Prédire les jalons : sachez exactement quand vous atteindrez votre prochain grand objectif.",
         bullet2: "Visualisez vos progrès : comprenez votre régularité grâce à une interface propre et optimisée."
+      },
+      footer: {
+        made_by: "Fait par"
       }
     }
   },
@@ -226,10 +238,13 @@ const resources = {
         title1: "Cos'è uno slancio di Duolingo e perché è così importante?",
         text1: "Uno slancio di Duolingo rappresenta il numero di giorni consecutivi in cui hai completato una lezione. È la forza trainante della gamification della piattaforma; perderlo può essere demotivante, mentre mantenerlo rafforza l'abitudine quotidiana di imparare una nuova lingua. Un lungo slancio non solo dimostra costanza, ma diventa anche un trofeo personale all'interno della comunità di apprendimento.",
         title2: "Perché monitorare il tuo slancio con il nostro strumento?",
-        text2: "Mentre l'app ufficiale ti mostra il numero del tuo slancio attuale, il nostro calcolatore di slancio Duolingo fa un passo avanti. Ti aiutiamo a visualizzare traguardi specifici e \"compleanni\" nel tuo slancio (come i tuoi primi 100, 365 o 1000 giorni).",
+        text2: "Mentre l'app ufficiale ti mostra il numero del tuo slancio attuale, il nostro calcolatore di slancio Duolingo fa un passo avanti. Ti aiutiamo a visualizzare traguardi specifici e \"compleanni\" nel tuo slancio (como i tuoi primi 100, 365 o 1000 giorni).",
         text3: "Inserendo i tuoi giorni di slancio, il nostro strumento analizza le tue statistiche così puoi:",
         bullet1: "Prevedere i traguardi: sappi esattamente quando raggiungerai il tuo prossimo grande obiettivo.",
         bullet2: "Visualizzare i tuoi progressi: comprendi la tua costanza attraverso un'interfaccia pulita e ottimizzata."
+      },
+      footer: {
+        made_by: "Fatto da"
       }
     }
   },
@@ -276,6 +291,9 @@ const resources = {
         text3: "Durch Eingabe deiner Streak-Tage analysiert unser Tool deine Statistiken, sodass du:",
         bullet1: "Meilensteine vorhersagen kannst: Erfahre genau, wann du dein nächstes großes Ziel erreichst.",
         bullet2: "Deinen Fortschritt visualisieren kannst: Verstehe deine Beständigkeit durch eine saubere und optimierte Benutzeroberfläche."
+      },
+      footer: {
+        made_by: "Erstellt von"
       }
     }
   }

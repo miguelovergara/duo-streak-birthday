@@ -371,11 +371,14 @@ export default function App() {
         
         {/* Card de Input Principal */}
         <div className="bg-white rounded-2xl p-6 shadow-sm border-2 border-gray-200 mb-8">
-          <h1 id="streak-label" className="block text-center text-lg font-bold text-gray-800 mb-4">
-            {t('input.label')}
+          <h1 className="block text-center text-lg font-bold text-gray-800 mb-4">
+            <label htmlFor="streak-input" className="cursor-pointer">
+              {t('input.label')}
+            </label>
           </h1>
           <div className="relative max-w-xs mx-auto">
             <input
+              id="streak-input"
               type="text"
               inputMode="numeric"
               pattern="[0-9]*"
@@ -390,7 +393,6 @@ export default function App() {
               }`}
               aria-invalid={!!error}
               aria-describedby="input-error"
-              aria-labelledby="streak-label"
               autoFocus
             />
             <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
@@ -525,6 +527,21 @@ export default function App() {
           )}
         </div>
       </main>
+
+      {!streak && (
+        <footer className="mt-12 text-center text-gray-400 text-xs font-bold uppercase tracking-widest pb-8">
+          {t('footer.made_by')}{' '}
+          <a
+            href="https://github.com/miguelovergara"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-gray-600 transition-colors underline decoration-dotted underline-offset-4"
+          >
+            @miguelovergara
+          </a>
+        </footer>
+      )}
+
       <Analytics />
     </div>
   );
