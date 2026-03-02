@@ -24,7 +24,8 @@ const resources = {
         eq90: "Three months! Congratulations! Keep this streak going.",
         eq60: "Two months! Congratulations! Keep this streak going.",
         eq30: "One month! Congratulations! Keep this streak going.",
-        gt0: "Excellent start! Every day counts. Keep it up!"
+        gt0: "Excellent start! Every day counts. Keep it up!",
+        eq0: "This is a great day to start!"
       },
       timeline: {
         title: "Your Timeline"
@@ -67,7 +68,8 @@ const resources = {
         eq90: "¡Tres meses! ¡Felicitaciones! Sigue con esta racha.",
         eq60: "¡Dos meses! ¡Felicitaciones! Sigue con esta racha.",
         eq30: "¡Un mes! ¡Felicitaciones! Sigue con esta racha.",
-        gt0: "¡Excelente comienzo! Cada día cuenta. ¡Sigue así!"
+        gt0: "¡Excelente comienzo! Cada día cuenta. ¡Sigue así!",
+        eq0: "¡Es un gran día para comenzar!"
       },
       timeline: {
         title: "Tu Línea de Tiempo"
@@ -110,7 +112,8 @@ const resources = {
         eq90: "Três meses! Parabéns! Continue com essa ofensiva.",
         eq60: "Dois meses! Parabéns! Continue com essa ofensiva.",
         eq30: "Um mês! Parabéns! Continue com essa ofensiva.",
-        gt0: "Excelente começo! Cada dia conta. Continue assim!"
+        gt0: "Excelente começo! Cada dia conta. Continue assim!",
+        eq0: "Este é um ótimo dia para começar!"
       },
       timeline: {
         title: "Sua Linha do Tempo"
@@ -153,7 +156,8 @@ const resources = {
         eq90: "Trois mois ! Félicitations ! Continuez sur cette lancée.",
         eq60: "Deux mois ! Félicitations ! Continuez sur cette lancée.",
         eq30: "Un mois ! Félicitations ! Continuez sur cette lancée.",
-        gt0: "Excellent début ! Chaque jour compte. Continuez ainsi !"
+        gt0: "Excellent début ! Chaque jour compte. Continuez ainsi !",
+        eq0: "C'est une excellente journée pour commencer !"
       },
       timeline: {
         title: "Votre Chronologie"
@@ -196,7 +200,8 @@ const resources = {
         eq90: "Tre mesi! Congratulazioni! Continua con questo slancio.",
         eq60: "Due mesi! Congratulazioni! Continua con questo slancio.",
         eq30: "Un mese! Congratulazioni! Continua con questo slancio.",
-        gt0: "Ottimo inizio! Ogni giorno conta. Continua così!"
+        gt0: "Ottimo inizio! Ogni giorno conta. Continua così!",
+        eq0: "È un giorno fantastico per iniziare!"
       },
       timeline: {
         title: "La tua Cronologia"
@@ -239,7 +244,8 @@ const resources = {
         eq90: "Drei Monate! Herzlichen Glückwunsch! Mach weiter so mit diesem Streak.",
         eq60: "Zwei Monate! Herzlichen Glückwunsch! Mach weiter so mit diesem Streak.",
         eq30: "Ein Monat! Herzlichen Glückwunsch! Mach weiter so mit diesem Streak.",
-        gt0: "Hervorragender Start! Jeder Tag zählt. Mach weiter so!"
+        gt0: "Hervorragender Start! Jeder Tag zählt. Mach weiter so!",
+        eq0: "Das ist ein großartiger Tag, um anzufangen!"
       },
       timeline: {
         title: "Deine Zeitachse"
