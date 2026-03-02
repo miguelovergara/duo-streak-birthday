@@ -6,7 +6,7 @@ const resources = {
   en: {
     translation: {
       app: {
-        title: "Duolingo Streak Calculator"
+        title: "Duolingo Streak Birthdays"
       },
       input: {
         label: "What is your current streak?",
@@ -66,7 +66,7 @@ const resources = {
   es: {
     translation: {
       app: {
-        title: "Calculadora de Racha en Duolingo"
+        title: "Cumpleaños de Racha en Duolingo"
       },
       input: {
         label: "¿Cuál es tu racha actual?",
@@ -126,7 +126,7 @@ const resources = {
   pt: {
     translation: {
       app: {
-        title: "Calculadora de Sequência Duolingo"
+        title: "Aniversários de Ofensiva no Duolingo"
       },
       input: {
         label: "Qual é a sua ofensiva atual?",
@@ -186,7 +186,7 @@ const resources = {
   fr: {
     translation: {
       app: {
-        title: "Calculateur de séries Duolingo"
+        title: "Anniversaires de Série Duolingo"
       },
       input: {
         label: "Quelle est votre série actuelle ?",
@@ -246,7 +246,7 @@ const resources = {
   it: {
     translation: {
       app: {
-        title: "Calcolatore di serie Duolingo"
+        title: "Compleanni dello Slancio Duolingo"
       },
       input: {
         label: "Qual è il tuo slancio attuale?",
@@ -306,7 +306,7 @@ const resources = {
   de: {
     translation: {
       app: {
-        title: "Duolingo-Streak-Rechner"
+        title: "Duolingo Streak-Geburtstage"
       },
       input: {
         label: "Wie hoch ist dein aktueller Streak?",

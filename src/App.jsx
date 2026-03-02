@@ -578,8 +578,8 @@ export default function App() {
                       </div>
                     </div>
 
-                    {/* Icono de Calendario en el centro */}
-                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+                    {/* Icono de Calendario a la derecha (75%) */}
+                    <div className="absolute left-[75%] top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
                       <Calendar className={`w-7 h-7 transition-colors ${
                         item.isMajor || item.isMedium
                           ? 'text-white/60 group-hover:text-white'
@@ -606,7 +606,7 @@ export default function App() {
                   {activeDropdown === item.target && (
                     <div
                       ref={dropdownRef}
-                      className="absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 bg-white rounded-2xl shadow-xl border-2 border-gray-100 py-2 z-50 text-gray-700 animate-in fade-in zoom-in duration-200"
+                      className="absolute left-[75%] -translate-x-1/2 top-full mt-1 w-48 bg-white rounded-2xl shadow-xl border-2 border-gray-100 py-2 z-50 text-gray-700 animate-in fade-in zoom-in duration-200"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <button
