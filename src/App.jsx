@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Flame, Calendar, Trophy, Star, Languages, ChevronDown } from 'lucide-react';
+import { Flame, Calendar, Trophy, Star, Languages, ChevronDown, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 export default function App() {
@@ -15,6 +15,8 @@ export default function App() {
 
   const inactivityTimerRef = useRef(null);
   const autoHideTimerRef = useRef(null);
+  const hideAnimationTimerRef = useRef(null);
+  const lastScrollYRef = useRef(0);
 
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
 
@@ -74,27 +76,41 @@ export default function App() {
     setIsLangMenuOpen(false);
   };
 
+  const hideMotivation = () => {
+    setShowMotivation(false);
+
+    if (autoHideTimerRef.current) clearTimeout(autoHideTimerRef.current);
+    if (hideAnimationTimerRef.current) clearTimeout(hideAnimationTimerRef.current);
+
+    // Esperar a que termine la animación de fade out (500ms) antes de dejar de renderizar
+    hideAnimationTimerRef.current = setTimeout(() => {
+      setShouldRenderMotivation(false);
+      setMotivationalMessage(null);
+      hideAnimationTimerRef.current = null;
+    }, 500);
+  };
+
   const triggerMotivation = (currentStreak) => {
     // Limpiar timers existentes
     if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
     if (autoHideTimerRef.current) clearTimeout(autoHideTimerRef.current);
+    if (hideAnimationTimerRef.current) {
+        clearTimeout(hideAnimationTimerRef.current);
+        hideAnimationTimerRef.current = null;
+    }
 
     const msg = generateMotivationalMessage(currentStreak);
     if (msg) {
       setMotivationalMessage(msg);
       setShouldRenderMotivation(true);
-      // Pequeño delay para asegurar que el componente está en el DOM antes de iniciar la ráfaga de entrada (aunque Tailwind transition-opacity lo maneja bien si se monta con opacity-0)
+      // Pequeño delay para asegurar que el componente está en el DOM antes de iniciar la entrada
       setTimeout(() => setShowMotivation(true), 10);
 
+      // Guardar la posición actual de scroll
+      lastScrollYRef.current = window.scrollY;
+
       // Ocultar después de 10 segundos
-      autoHideTimerRef.current = setTimeout(() => {
-        setShowMotivation(false);
-        // Esperar a que termine la animación de fade out (500ms) antes de dejar de renderizar
-        setTimeout(() => {
-          setShouldRenderMotivation(false);
-          setMotivationalMessage(null);
-        }, 500);
-      }, 10000);
+      autoHideTimerRef.current = setTimeout(hideMotivation, 10000);
     }
   };
 
@@ -102,16 +118,13 @@ export default function App() {
   const handleStreakChange = (e) => {
     const value = e.target.value;
     
-    // Si el usuario cambia el input, ocultamos inmediatamente
-    if (showMotivation || shouldRenderMotivation) {
-        setShowMotivation(false);
-        setShouldRenderMotivation(false);
-        setMotivationalMessage(null);
+    // Si el usuario cambia el input, ocultamos con fade-out
+    if (showMotivation) {
+        hideMotivation();
     }
 
     // Limpiar timers
     if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
-    if (autoHideTimerRef.current) clearTimeout(autoHideTimerRef.current);
 
     // Si el valor está vacío, limpia el error y la racha.
     if (value === '') {
@@ -151,11 +164,25 @@ export default function App() {
   }, [i18n.language, t]);
 
   useEffect(() => {
+    const handleScroll = () => {
+      if (showMotivation) {
+        const currentScroll = window.scrollY;
+        // Si el usuario se mueve hacia abajo (aunque sea un poco), fade out
+        if (currentScroll > lastScrollYRef.current) {
+          hideMotivation();
+        }
+        lastScrollYRef.current = currentScroll;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
+      window.removeEventListener('scroll', handleScroll);
       if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
       if (autoHideTimerRef.current) clearTimeout(autoHideTimerRef.current);
+      if (hideAnimationTimerRef.current) clearTimeout(hideAnimationTimerRef.current);
     };
-  }, []);
+  }, [showMotivation]);
 
   useEffect(() => {
     if (!streak) {
@@ -386,6 +413,13 @@ export default function App() {
                     showMotivation ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
                   }`}
               >
+                  <button
+                    onClick={hideMotivation}
+                    className="absolute top-2 right-2 text-gray-400"
+                    aria-label="Close"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
                   <Star className="w-5 h-5 inline mr-2 text-green-600 fill-current animate-pulse" />
                   <span className="font-semibold">{t(motivationalMessage.key, motivationalMessage.options)}</span>
               </div>
