@@ -32,7 +32,7 @@ export default function App() {
     { code: 'de', name: "Deutsch" },
   ];
 
-  // Function to format dates according to the language
+  // Format dates according to the language
   const formatDate = (date) => {
     return new Intl.DateTimeFormat(i18n.language, {
       weekday: 'long',
@@ -59,7 +59,6 @@ export default function App() {
       return d;
   };
 
-  // Logic to generate surprise messages
   const generateMotivationalMessage = (s) => {
       if (s > 1000)      return { key: 'motivation.gt1000' };
       else if (s == 730) return { key: 'motivation.eq730' };
@@ -117,7 +116,7 @@ export default function App() {
     }
   };
 
-  // Input handler to validate integers >= 0
+  // Input handler to validate streak integers >= 0
   const handleStreakChange = (e) => {
     const value = e.target.value;
     
@@ -129,7 +128,6 @@ export default function App() {
     // Clear timers
     if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
 
-    // If the value is empty, clear error and streak.
     if (value === '') {
       setStreak('');
       setError('');
@@ -283,7 +281,8 @@ export default function App() {
       }
     }
 
-    // 5. Multiples of Years (365, 730, etc.) - Leap Year Logic Implemented!
+    // 5. Multiples of Years (365, 730, etc.)
+    // Leap Year Logic Implemented
     let yearCount = 1;
     // We search up to 6 years into the future for a 2000-day limit
     while (yearCount <= (limit / 365) + 1) { 
