@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Opcional: Estilo de fuente global */
+/* Optional: Global font style */
 @layer base {
   body {
     font-family: 'Inter', sans-serif;
