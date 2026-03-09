@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
-import './index.css'; // Importa los estilos de Tailwind y estilos base
+import './index.css'; // Import Tailwind styles and base styles
 import './i18n';
 
 /**
- * Punto de entrada principal para la aplicación React.
- * Monta el componente 'App' dentro del elemento <div id="root"> en index.html.
+ * Main entry point for the React application.
+ * Mounts the 'App' component inside the <div id="root"> element in index.html.
  */
 ReactDOM.createRoot(document.getElementById('root')).render(
-  // React.StrictMode es útil para detectar problemas y advertencias en el desarrollo.
+  // React.StrictMode is useful for detecting problems and warnings during development.
   <React.StrictMode>
     <App />
   </React.StrictMode>,
