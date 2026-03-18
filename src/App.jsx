@@ -3,6 +3,15 @@ import { Flame, Calendar, Trophy, Star, Languages, ChevronDown, X } from 'lucide
 import { useTranslation } from 'react-i18next';
 import { Analytics } from '@vercel/analytics/react';
 
+const getCalendarDaysDiff = (startDate, endDate) => {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  start.setHours(0, 0, 0, 0);
+  end.setHours(0, 0, 0, 0);
+  const diffTime = end - start;
+  return Math.floor(diffTime / (1000 * 60 * 60 * 24));
+};
+
 export default function App() {
   const { t, i18n } = useTranslation();
   const [streak, setStreak] = useState('');
@@ -18,6 +27,8 @@ export default function App() {
   const autoHideTimerRef = useRef(null);
   const hideAnimationTimerRef = useRef(null);
   const lastScrollYRef = useRef(0);
+  const streakRef = useRef('');
+  const lastSavedStreakRef = useRef(null);
 
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -31,6 +42,16 @@ export default function App() {
     { code: 'it', name: "Italiano" },
     { code: 'de', name: "Deutsch" },
   ];
+
+  const saveStreakToLocalStorage = (currentStreak) => {
+    if (currentStreak > 0 && !isNaN(currentStreak)) {
+      const data = {
+        streak: currentStreak,
+        timestamp: new Date().toISOString()
+      };
+      localStorage.setItem('duo-streak-data', JSON.stringify(data));
+    }
+  };
 
   // Format dates according to the language
   const formatDate = (date) => {
@@ -130,6 +151,7 @@ export default function App() {
 
     if (value === '') {
       setStreak('');
+      streakRef.current = '';
       setError('');
       return;
     }
@@ -137,6 +159,7 @@ export default function App() {
     // Allow only positive integers
     if (/^\d+$/.test(value)) {
       setStreak(value);
+      streakRef.current = value;
       setError('');
       setActiveDropdown(null);
 
@@ -158,12 +181,38 @@ export default function App() {
       const currentStreak = Number(streak);
       if (currentStreak > 0 && !isNaN(currentStreak)) {
           triggerMotivation(currentStreak);
+          if (currentStreak !== lastSavedStreakRef.current) {
+            saveStreakToLocalStorage(currentStreak);
+            lastSavedStreakRef.current = currentStreak;
+          }
       }
   };
 
   useEffect(() => {
     document.title = t('app.title').toUpperCase();
   }, [i18n.language, t]);
+
+  useEffect(() => {
+    const savedData = localStorage.getItem('duo-streak-data');
+    if (savedData) {
+      try {
+        const { streak: savedStreak, timestamp } = JSON.parse(savedData);
+        const daysPassed = getCalendarDaysDiff(timestamp, new Date());
+        const updatedStreak = Number(savedStreak) + daysPassed;
+
+        if (!isNaN(updatedStreak) && updatedStreak >= 0) {
+          const streakStr = updatedStreak.toString();
+          setStreak(streakStr);
+          streakRef.current = streakStr;
+          // Save back updated streak with current timestamp
+          saveStreakToLocalStorage(updatedStreak);
+          lastSavedStreakRef.current = updatedStreak;
+        }
+      } catch (e) {
+        console.error("Failed to parse saved streak data", e);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -184,14 +233,23 @@ export default function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (showMotivation) {
-        const currentScroll = window.scrollY;
-        // If the user scrolls down (even slightly), fade out
-        if (currentScroll > lastScrollYRef.current) {
-          hideMotivation();
-        }
-        lastScrollYRef.current = currentScroll;
+      const currentScroll = window.scrollY;
+      const isScrollingDown = currentScroll > lastScrollYRef.current;
+
+      if (showMotivation && isScrollingDown) {
+        hideMotivation();
       }
+
+      // Save to localStorage when scrolling down, even if motivation is not showing
+      if (isScrollingDown) {
+        const currentStreakValue = Number(streakRef.current);
+        if (currentStreakValue > 0 && !isNaN(currentStreakValue) && currentStreakValue !== lastSavedStreakRef.current) {
+          saveStreakToLocalStorage(currentStreakValue);
+          lastSavedStreakRef.current = currentStreakValue;
+        }
+      }
+
+      lastScrollYRef.current = currentScroll;
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
